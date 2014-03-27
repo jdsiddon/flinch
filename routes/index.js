@@ -4,6 +4,10 @@ var
 	, mongoose = require('mongoose')
 	, dataSet = require('../models/data-sets')
 	, standard = require('../lib/index')
+	, mv = require('mv')
+	, path = require('path')
+	, data = require('../lib/data')
+	, async = require('async')
 ;
 
 /* Index Route */
@@ -25,63 +29,58 @@ exports.list = function(req, res) {
 };
 
 exports.convert = function(req, res) {
-
+	console.log(files);
 	
-	fs.readFile(__dirname + '/x.txt', 'utf8', function (err, data) {
-		if (err) throw err;		
-		
-			var lines = data.split('\n');
-			var collectionInfo = lines.shift();						// Remove data collection information, stored in first array position
+	/*standard.asyncLoop(files.length, function(loop) {
+		var fileProcessor = function(cb) {*/
 				
-			collectionInfo = collectionInfo.split(',');				// Convert collectionInfo into array divided by comma's.
-								
-			var sample = new dataSet({
-				date: collectionInfo[0],
-				g: collectionInfo[1],
-				frequency: collectionInfo[2],
-			});
+			// assuming openFiles is an array of file names and saveFile is a function
+			// to save the modified contents of that file:
 
-			standard.asyncLoop(lines.length, function(loop) {
-				var testFunc = function(cb) {
-					var line = lines[loop.iteration()];				// Single line "time, x, y, z"
-					var items = line.split(',');					// Break line into array items = [time, x, y, z];
-					
-					sample.reading.push({
-						time: items[0],
-						x: items[1],
-						y: items[2],
-						z: items[3]
-					});
+			//async.eachSeries(files, function(file, callback) {
+		    // Call an asynchronous function (often a save() to MongoDB)
+		    	data.convert('basic_moving.txt'/*file*/, function (err, data){
+		      		// Async call is done, alert via callback
+					if (err) {
+						console.log(err);
+					} else {
+						console.log(data);
+					}
+		      		callback();
+		    	});
+		  	//},
+		 	
+			//	data.convert(item, function() {
+			//	console.log('1');
+		   //function(err){
+		//		if (err) console.log(err);
+			    // if any of the saves produced an error, err would equal that error
+		//		console.log('alldone');
+			//});
+		
+			/*
+			data.convert(filePath, function(err, results) {
+				if (err) {
+					console.log('Not a file!');							// Not a file, probably a directory!
+				} else {		
+					console.log(data);									// Was a file, saved to db.
+				}
+				//cb();
 				
-					cb();
-				};
-				testFunc(function() {
-					loop.next();
-				});
-			}, function() {
-				sample.save(function(err) {
-					console.log('all done!');
-					res.send('done');
-				});
-			});
-			
+			});*/
+		/*	
+		};
+		fileProcessor(function() {
+			loop.next();
+		});
+	}, function() {
 		
-		
-		/*
-		$.each(lines, function(lineNo, line) {
-			var items = line.split(',');	// Array 'items' = [time, x, y, z]
+		console.log('all done!');
 
-			var time = items.shift();
-
-			$.each(items, function(itemNo, item) {
-
-				var value = parseFloat(items[itemNo]);
-
-				options.series[itemNo].data.push([time, value]);
-			})
-
-		});*/
-	});
+	});*/
+	
+	
+	
 };
 
 exports.chart = function(req, res) {
@@ -96,7 +95,7 @@ exports.chart = function(req, res) {
 		standard.asyncLoop(data.reading.length, function(loop) {
 			var formatData = function(cb) {								// Function to peel apart single data points from the "Reading" doc
 				var line = data.reading[loop.iteration()];				// Single object with "time, x, y, z" properties
-				if (line.time != null) {
+				if (line.time != null) {								// Make sure data point is valid
 					var tempT = line.time;									 
 					var tempX = line.x;
 					var tempY = line.y;
@@ -120,12 +119,9 @@ exports.chart = function(req, res) {
 				y: y,
 				z: z,
 			};
-			console.log(pkg);											// Debugging
-			var testArr =  [
-				 [ '101146968', '-9.96' ],
-			     [ '101150628', '-10.43' ],
-			     [ '101154344', '-9.81' ] ];
-			res.send(pkg);											// Send the data
+			//console.log(pkg);											// Debugging
+			
+			res.send(pkg);												// Send the data
 		});
 	});
 };
