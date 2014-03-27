@@ -31,8 +31,6 @@ exports.list = function(req, res) {
 exports.convert = function(req, res) {
 	console.log(files);
 	
-	/*standard.asyncLoop(files.length, function(loop) {
-		var fileProcessor = function(cb) {*/
 				
 			// assuming openFiles is an array of file names and saveFile is a function
 			// to save the modified contents of that file:
@@ -46,7 +44,7 @@ exports.convert = function(req, res) {
 					} else {
 						console.log(data);
 					}
-		      		callback();
+		      	//	callback();
 		    	});
 		  	//},
 		 	
@@ -57,29 +55,6 @@ exports.convert = function(req, res) {
 			    // if any of the saves produced an error, err would equal that error
 		//		console.log('alldone');
 			//});
-		
-			/*
-			data.convert(filePath, function(err, results) {
-				if (err) {
-					console.log('Not a file!');							// Not a file, probably a directory!
-				} else {		
-					console.log(data);									// Was a file, saved to db.
-				}
-				//cb();
-				
-			});*/
-		/*	
-		};
-		fileProcessor(function() {
-			loop.next();
-		});
-	}, function() {
-		
-		console.log('all done!');
-
-	});*/
-	
-	
 	
 };
 
