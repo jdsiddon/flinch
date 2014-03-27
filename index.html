@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>untitled</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./style.css">
+	<meta name="author" content="justin siddon">
+	<!-- Date: 2014-03-06 -->
+	<script type="text/javascript">
+
+	// Same as dummy-graph.html but takes in a .txt file instead of a .csv
+			
+		
+			$(document).ready(function() {
+
+
+				var options = {
+					chart: {
+						renderTo: 'container',
+						zoomType: 'x'
+					},
+					title: {
+						text: 'Gun Fire'
+					},
+					xAxis: {
+						type: 'datetime',
+						title: {
+							text: 'Time'
+						}
+					},
+					yAxis: {
+						title: {
+							text: 'G Force'
+						}
+					},
+					series: [{
+						name: 'x',
+						data:[]
+					}, {
+						name: 'y',
+						data:[]
+					}, {
+						name: 'z',
+						data:[]
+					}]
+				};
+
+
+
+				$.get('./x.txt', function(data) {
+					// Split the lines
+					var lines = data.split('\n');
+					console.log(lines);
+
+					$.each(lines, function(lineNo, line) {
+						var items = line.split(',');	// Array 'items' = [time, x, y, z]
+						if (items.length === 4) {
+							console.log(items);
+							var time = items.shift();
+
+							$.each(items, function(itemNo, item) {
+
+								var value = parseFloat(items[itemNo]);
+
+								options.series[itemNo].data.push([time, value]);
+							})
+						} else {
+							console.log("Bad data reading!");
+						}
+						
+					});
+				
+					var chart = new Highcharts.Chart(options);
+					
+					$('.x').click(function(e) {
+						var series = chart.series[0];
+							if (series.visible) {
+								series.hide();
+								$button.html('Show series');
+							} else {
+								series.show();
+								$button.html('Hide series');
+							}
+					});
+					$('.y').click(function(e) {
+						var series = chart.series[1];
+							if (series.visible) {
+								series.hide();
+								$button.html('Show series');
+							} else {
+								series.show();
+								$button.html('Hide series');
+							}
+					});
+					$('.z').click(function(e) {
+						var series = chart.series[2];
+							if (series.visible) {
+								series.hide();
+								$button.html('Show series');
+							} else {
+								series.show();
+								$button.html('Hide series');
+							}
+					});
+					
+				});
+				
+				
+				var getData = function() {
+					console.log('hit');
+				};
+				
+				$('.test').click(function(e) {
+					$.get('./030814-live-fire/8g/800hz-double-action.txt', function(data) {
+						console.log(data);
+					});
+				});
+				
+			
+			});
+			</script>
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+            		<span class="icon-bar"></span>
+            		<span class="icon-bar"></span>
+            		<span class="icon-bar"></span>
+          		</button>
+				<a class="navbar-brand" href="#">Project name</a>
+        	</div>
+        	<div class="navbar-collapse collapse">
+          		<ul class="nav navbar-nav navbar-right">
+            		<li><a href="#">Dashboard</a></li>
+            		<li><a href="#">Settings</a></li>
+            		<li><a href="#">Profile</a></li>
+            		<li><a href="#">Help</a></li>
+          		</ul>
+          		<form class="navbar-form navbar-right">
+            		<input type="text" class="form-control" placeholder="Search...">
+          		</form>
+        	</div>
+		</div> <!-- container-fluid -->
+    </div>
+	
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2">
+	        	<ul class="nav nav-sidebar">
+	            	<li class="active"><a href="#">Data</a></li>
+	            	<li><a href="#">Reports</a></li>
+	            	<li><a href="#">Analytics</a></li>
+	            	<li><a href="#" class="test">test</a></li>
+					<li><a href="#" class="x">X</a></li>
+					<li><a href="#" class="y">Y</a></li>
+					<li><a href="#" class="z">Z</a></li>
+				</ul> 
+			</div>
+			<div class="col-md-10">
+				<h1 class="page-header">Dashboard</h1>
+				<div class="row placeholders">
+					<p>This is some text</p>
+	      			<!--><div id="container" style="width: 2000px; height: 1000px; margin: 0 auto"></div> -->
+	          	</div>
+			</div>
+		</div>
+	</div> <!-- container -->
+	
+
+	
+wee
+</body>
+</html>

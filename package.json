@@ -1,0 +1,20 @@
+{
+  "name": "Flinch",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+	"nodemon": "*"
+	, "request": "*"
+	, "stylus": "*"
+	, "jslint": "*"
+	, "express": "3.1.0"
+	, "ejs": "*"
+	, "ejs-locals": "~1.0.2"
+	, "express-partials": "*"
+	, "jshint": "*"
+	, "mongoose": "*"
+  }
+}

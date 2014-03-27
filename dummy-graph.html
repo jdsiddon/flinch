@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>untitled</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+	<meta name="author" content="justin siddon">
+	<!-- Date: 2014-03-06 -->
+	<script type="text/javascript">
+
+			
+		
+			$(document).ready(function() {
+
+
+				var options = {
+					chart: {
+						renderTo: 'container',
+						zoomType: 'x'
+					},
+					title: {
+						text: 'Gun Fire'
+					},
+					xAxis: {
+						type: 'datetime',
+						title: {
+							text: 'Time'
+						}
+					},
+					yAxis: {
+						title: {
+							text: 'G Force'
+						}
+					},
+					series: [{
+						name: 'x',
+						data:[]
+					}, {
+						name: 'y',
+						data:[]
+					}, {
+						name: 'z',
+						data:[]
+					}]
+				};
+
+				$.get('./030814-live-fire/800hz/16g-2.csv', function(data) {
+					// Split the lines
+					var lines = data.split('\n');
+
+					$.each(lines, function(lineNo, line) {
+						var items = line.split(',');	// Array 'items' = [time, x, y, z]
+						
+						var time = items.shift();
+						
+						$.each(items, function(itemNo, item) {
+
+							var value = parseFloat(items[itemNo]);
+							
+							options.series[itemNo].data.push([time, value]);
+						})
+						
+					});
+				
+					var chart = new Highcharts.Chart(options);
+				});
+
+			});
+			</script>
+</head>
+<body>
+
+	<!-- 3. Add the container -->
+	<div id="container" style="width: 2000px; height: 1000px; margin: 0 auto"></div>
+
+</body>
+</html>

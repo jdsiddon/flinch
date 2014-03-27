@@ -1,0 +1,100 @@
+<% layout('layout') -%>
+
+	<div class="container">
+    	<div class="row">
+    		<div class="col-md-2">
+				<div class="btn-group-vertical">
+				<% files.forEach( function( file ){ %>
+				<button type="button" class="btn btn-default data-points" name="<%= file %>"><%= file %></button>
+				<% }); %>
+				<button type="button" class="btn btn-default chart" name="chart">Chart Data</button>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div id="container" style="width: 1000px; height: 1000px; margin: 0 auto"></div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var options = {
+				chart: {
+					renderTo: 'container',
+					zoomType: 'x'
+				},
+				title: {
+					text: 'Gun Fire'
+				},
+				xAxis: {
+					type: 'datetime',
+					title: {
+						text: 'Time'
+					}
+				},
+				yAxis: {
+					title: {
+						text: 'G Force'
+					}
+				},
+				series: [{
+					name: 'x',
+					data:[]
+				}, {
+					name: 'y',
+					data:[]
+				}, {
+					name: 'z',
+					data:[]
+				}]
+			};
+
+		$('.data-points').click(function(){
+			var data = {
+				file: this.name
+			};
+			
+			
+			console.log(data);
+					
+			$.get('/convert', data, function(data) {
+				// Split the lines
+				console.log(data);
+				/*var lines = data.split('\n');
+
+				*/
+			});
+			
+			
+		});
+		
+		$('.chart').click(function(){
+		/*	$.each(lines, function(lineNo, line) {
+				var items = line.split(',');	// Array 'items' = [time, x, y, z]
+
+				var time = items.shift();
+		*/
+			$.get('/chart', function(head, x, y, z) {
+				console.log(head);
+				console.log(x);
+				options.series[0].data.push(x);
+				options.series[1].data.push(y);
+				options.series[2].data.push(z);
+				/*
+				$.each(chartData, function(itemNo, item) {
+					var value = parseFloat(chartData[itemNo]);
+				//	console.log(value);
+					console.log(item);
+					//options.series[itemNo].data.push([time, value]);
+				});*/
+
+				var chart = new Highcharts.Chart(options);
+			});
+			
+		
+		});
+
+			});
+			</script>
