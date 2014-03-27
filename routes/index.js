@@ -85,9 +85,8 @@ exports.convert = function(req, res) {
 };
 
 exports.chart = function(req, res) {
-	dataSet.findOne({_id: '53337a3121b55024e8f7a8bf'}, function(err, data) {
+	dataSet.findOne({_id: '53346ddc84f8360000cbd93b'}, function(err, data) {
 		if (err) console.log(err);
-	//	console.log(data.reading.length);
 		
 		var head = [data.date, data.g, data.frequency];					// Information about the data date, g force setting, and frequency
 		var x = [];
@@ -95,46 +94,38 @@ exports.chart = function(req, res) {
 		var z = [];
 		
 		standard.asyncLoop(data.reading.length, function(loop) {
-			var formatData = function(cb) {
-				var line = data.reading[loop.iteration()];				// Single line "time, x, y, z"
-			//	console.log(line);
-			//	if (line.tempT == null) {								// Account for any entries with corrupted data;
-				//	console.log('not valid');
-				//	cb();
-					
-			//	} else {
-					//console.log(line.split(','));
-				//	var values = line.split(',');						// Break line into array items = [time, x, y, z];
-					console.log(line);
-					var tempT = line["time"];
+			var formatData = function(cb) {								// Function to peel apart single data points from the "Reading" doc
+				var line = data.reading[loop.iteration()];				// Single object with "time, x, y, z" properties
+				if (line.time != null) {
+					var tempT = line.time;									 
 					var tempX = line.x;
 					var tempY = line.y;
 					var tempZ = line.z;
 
-					x.push([tempT, tempX]);	
-					y.push([tempT, tempY]);	
+					x.push([tempT, tempX]);									// Push temp variables to individual arrays to fit within
+					y.push([tempT, tempY]);									// highstock.js's API.
 					z.push([tempT, tempZ]);
-					
-
-
+				}	
 				cb();
 				
 			};
 			formatData(function() {
-				loop.next();
+				loop.next();											
 			});
-		}, function() {
+		}, function() {													// Executes after each data.reading subdocument has been looped through
 
-			var pkg = {
-				head: head,
+			var pkg = {													// Package each individual array into object to send back to client 
+				head: head,												// for graphing.
 				x: x,
 				y: y,
 				z: z,
 			};
-			console.log(pkg);
-			res.send(pkg);
+			console.log(pkg);											// Debugging
+			var testArr =  [
+				 [ '101146968', '-9.96' ],
+			     [ '101150628', '-10.43' ],
+			     [ '101154344', '-9.81' ] ];
+			res.send(pkg);											// Send the data
 		});
-			
-	//	res.send(data.reading);
 	});
 };

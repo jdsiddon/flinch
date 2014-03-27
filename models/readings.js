@@ -4,7 +4,7 @@ var
 ;
 
 var readingsSchema = new Schema({
-	time: Date,
+	time: Number,
 	x: Number,
 	y: Number,
 	z: Number

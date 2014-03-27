@@ -11,7 +11,7 @@
 				</div>
 			</div>
 			<div class="col-md-10">
-				<div id="container" style="width: 1000px; height: 1000px; margin: 0 auto"></div>
+				<div id="container" style="width: 2000px; height: 1000px; margin: 0 auto"></div>
 			</div>
 		</div>
 	</div>
@@ -20,36 +20,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var options = {
-				chart: {
-					renderTo: 'container',
-					zoomType: 'x'
-				},
-				title: {
-					text: 'Gun Fire'
-				},
-				xAxis: {
-					type: 'datetime',
-					title: {
-						text: 'Time'
-					}
-				},
-				yAxis: {
-					title: {
-						text: 'G Force'
-					}
-				},
-				series: [{
-					name: 'x',
-					data:[]
-				}, {
-					name: 'y',
-					data:[]
-				}, {
-					name: 'z',
-					data:[]
-				}]
-			};
+			
 
 		$('.data-points').click(function(){
 			var data = {
@@ -71,26 +42,54 @@
 		});
 		
 		$('.chart').click(function(){
-		/*	$.each(lines, function(lineNo, line) {
-				var items = line.split(',');	// Array 'items' = [time, x, y, z]
+		
+			$.get('/chart', function(pkg) {
+			/*	console.log(pkg.head);
+				console.log(pkg.x);
+				console.log(pkg.y);
+				console.log(pkg.z);*/
+				/*var testArr =  [[ 101146968, -9.96 ],
+					     [ 101150628, -10.43 ],
+					     [ 101154344, -9.8]];
+				*/
+				var options = {
+					chart: {
+						renderTo: 'container',
+						zoomType: 'x'
+					},
+					title: {
+						text: 'Gun Fire'
+					},
+					xAxis: {
+						type: 'linear',
+						title: {
+							text: 'Time'
+						}
+					},
+					yAxis: {
+						title: {
+							text: 'G Force'
+						}
+					},
+					series: [{
+						name: 'x',
+						data: pkg.x
+					}, {
+						name: 'y',
+						data: pkg.y
+					}, {
+						name: 'z',
+						data: pkg.z
+					}]
+				};
+				
+			
+					console.log(options.series[0].data);
+				
+					$('#container').highcharts(options);				
+				
 
-				var time = items.shift();
-		*/
-			$.get('/chart', function(head, x, y, z) {
-				console.log(head);
-				console.log(x);
-				options.series[0].data.push(x);
-				options.series[1].data.push(y);
-				options.series[2].data.push(z);
-				/*
-				$.each(chartData, function(itemNo, item) {
-					var value = parseFloat(chartData[itemNo]);
-				//	console.log(value);
-					console.log(item);
-					//options.series[itemNo].data.push([time, value]);
-				});*/
-
-				var chart = new Highcharts.Chart(options);
+				//var chart = new Highcharts.Chart(options);
 			});
 			
 		
