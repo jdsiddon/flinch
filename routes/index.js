@@ -1,6 +1,6 @@
 var
 	fs = require('fs')
-	, files = fs.readdirSync('./tests')
+//	, files = fs.readdirSync('./tests')
 	, mongoose = require('mongoose')
 	, dataSet = require('../models/data-sets')
 	, standard = require('../lib/index')
@@ -14,7 +14,7 @@ var
 exports.index = function(req, res){
 	res.render('index', { 
 		title: 'Gunsumer Price Index'
-		, files: files
+		, files: fs.readdirSync('./tests')
 		, muppets: [ 'Kermit', 'Fozzie', 'Gonzo' ]
 		, who: "ME"
 	});	
@@ -29,37 +29,29 @@ exports.list = function(req, res) {
 };
 
 exports.convert = function(req, res) {
-	console.log(files);
-	
-				
-			// assuming openFiles is an array of file names and saveFile is a function
-			// to save the modified contents of that file:
+	var file = req.params['file'];
 
-			//async.eachSeries(files, function(file, callback) {
-		    // Call an asynchronous function (often a save() to MongoDB)
-		    	data.convert('basic_moving.txt'/*file*/, function (err, data){
-		      		// Async call is done, alert via callback
-					if (err) {
-						console.log(err);
-					} else {
-						console.log(data);
-					}
-		      	//	callback();
-		    	});
-		  	//},
-		 	
-			//	data.convert(item, function() {
-			//	console.log('1');
-		   //function(err){
-		//		if (err) console.log(err);
-			    // if any of the saves produced an error, err would equal that error
-		//		console.log('alldone');
-			//});
-	
+	data.convert(file, function (err, stuff){
+		// Async call is done, alert via callback
+		if (err) {
+			console.log(err);
+		} else {
+		//	console.log(stuff);
+			data.archive(file, function(err, success) {							// Move file to the archive folder.
+				if (err) {
+					res.send(err);
+				} else {
+				//	console.log(stuff);
+					res.send(stuff);
+				}
+			});
+			
+		}
+	});
 };
 
 exports.chart = function(req, res) {
-	dataSet.findOne({_id: '53346ddc84f8360000cbd93b'}, function(err, data) {
+	dataSet.findOne({_id: '5334b2830ee3fe0000273491'}, function(err, data) {
 		if (err) console.log(err);
 		
 		var head = [data.date, data.g, data.frequency];					// Information about the data date, g force setting, and frequency
