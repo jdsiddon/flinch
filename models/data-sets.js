@@ -5,6 +5,7 @@ var
 ;
 
 var dataSetsSchema = new Schema({
+	name: String,
 	date: Date,
 	g: Number,
 	frequency: Number,

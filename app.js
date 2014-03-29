@@ -39,7 +39,7 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/list', routes.list);
 app.get('/convert/:file', routes.convert);
-app.get('/chart', routes.chart);
+app.get('/chart/:chartData', routes.chart);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

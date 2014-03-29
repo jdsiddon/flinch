@@ -12,46 +12,48 @@ var
 
 /* Index Route */
 exports.index = function(req, res){
-	res.render('index', { 
-		title: 'Gunsumer Price Index'
-		, files: fs.readdirSync('./tests')
-		, muppets: [ 'Kermit', 'Fozzie', 'Gonzo' ]
-		, who: "ME"
-	});	
+	dataSet.find(function (err, docs) {
+		res.render('index', { 
+			Project: 'Accelerometer Data'
+			, files: fs.readdirSync('./tests')
+			, chartDocuments: docs
+		});	
+	});
 };
 
 
 exports.list = function(req, res) {
 	res.render('list', {
 		title: 'list',
-		files: files	
-	});
+		files: files
+	});		
 };
 
 exports.convert = function(req, res) {
 	var file = req.params['file'];
+	console.log(file);
 
-	data.convert(file, function (err, stuff){
+	data.convert(file, function (err, filePath){
 		// Async call is done, alert via callback
 		if (err) {
 			console.log(err);
 		} else {
 		//	console.log(stuff);
-			data.archive(file, function(err, success) {							// Move file to the archive folder.
+			data.archive(file, filePath, function(err, success) {							// Move file to the archive folder.
 				if (err) {
 					res.send(err);
 				} else {
 				//	console.log(stuff);
-					res.send(stuff);
+					res.send(success);
 				}
-			});
-			
+			});		
 		}
 	});
 };
 
 exports.chart = function(req, res) {
-	dataSet.findOne({_id: '5334b2830ee3fe0000273491'}, function(err, data) {
+	console.log(req.params.chartData);
+	dataSet.findOne({ name: req.params.chartData }, function(err, data) {
 		if (err) console.log(err);
 		
 		var head = [data.date, data.g, data.frequency];					// Information about the data date, g force setting, and frequency

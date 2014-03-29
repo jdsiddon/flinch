@@ -4,78 +4,37 @@
     	<div class="row">
     		<div class="col-md-2">
 				<div class="row">
-				<h2>Files to convert</h2>
-				<div class="btn-group-vertical">
-				<% files.forEach( function( file ){ %>
-				<button type="button" class="btn btn-default data-points" name="<%= file %>"><%= file %></button>
-				<% }); %>
-				</div>
+					<h4>Files to convert</h4>
+					<div class="btn-group-vertical">
+					<% files.forEach( function( file ){ %>
+						<button type="button" class="btn btn-default convert" name="<%= file %>"><%= file %></button>
+					<% }); %>
+					</div>
 				</div>
 				
 				<div class="row">
-				<div class="btn-group-vertical">
-				<button type="button" class="btn btn-default chart" name="chart">Chart Data</button>
-				</div>
+					<h4>Available Data</h4>
+					<div class="btn-group-vertical">
+					<% chartDocuments.forEach( function( chartDocument ){ %>		
+						<button type="button" class="btn btn-default chart" name="<%= chartDocument.name %>"><%= chartDocument.name %></button>
+					<% }); %>
+					</div>					
 				</div>
 			</div>
 			<div class="col-md-10">
-				<div id="container" style="width: 2000px; height: 1000px; margin: 0 auto"></div>
+				<div id="container" style="height: 1000px; margin: 0 auto"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="btn-toolbar" role="toolbar">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default x">Hide - X</button>
+					<button type="button" class="btn btn-default y">Hide - Y</button>					
+					<button type="button" class="btn btn-default z">Hide - Z</button>					
+				</div>
 			</div>
 		</div>
 	</div>
 	
 
 	
-<script type="text/javascript">
-	$(document).ready(function() {
-			
-		/* Onclick of buttons with class '.data-points' and convert that file to a MongooseJS document */	
-		$('.data-points').click(function(){
-			$.get('/convert/' + this.name, function(data) {
-				console.log(data);
-				files = ['test.txt', 'test2.txt'];
-			});				
-		});
-		
-		$('.chart').click(function(){
-		
-			$.get('/chart', function(pkg) {
-			
-				var title = JSON.stringify(pkg.head);			// To display reading data at top of graph, time, g's, freq
-				var options = {
-					chart: {
-						renderTo: 'container',
-						zoomType: 'x'
-					},
-					title: {
-						text: title
-					},
-					xAxis: {
-						type: 'linear',
-						title: {
-							text: 'Time'
-						}
-					},
-					yAxis: {
-						title: {
-							text: 'G Force'
-						}
-					},
-					series: [{
-						name: 'x',
-						data: pkg.x
-					}, {
-						name: 'y',
-						data: pkg.y
-					}, {
-						name: 'z',
-						data: pkg.z
-					}]
-				};
-				
-				$('#container').highcharts(options);				// Create graph
-			});
-		});
-
-	});
-</script>
