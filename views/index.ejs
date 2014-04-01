@@ -5,24 +5,29 @@
     		<div class="col-md-2">
 				<div class="row">
 					<h4>Files to convert</h4>
-					<div class="btn-group-vertical">
+					<ul class="list-group">
 					<% files.forEach( function( file ){ %>
-						<button type="button" class="btn btn-default convert" name="<%= file %>"><%= file %></button>
+						<li class="list-group-item"><%= file %> 
+						<button type="button" class="btn btn-primary btn-xs convert" name="<%= file %>">Convert</button>
+						</li>
 					<% }); %>
-					</div>
+					</ul>
 				</div>
 				
 				<div class="row">
 					<h4>Available Data</h4>
-					<div class="btn-group-vertical">
-					<% chartDocuments.forEach( function( chartDocument ){ %>		
-						<button type="button" class="btn btn-default chart" name="<%= chartDocument.name %>"><%= chartDocument.name %></button>
+					<ul class="list-group">
+					<% chartDocuments.forEach( function( chartDocument ){ %>
+						 <li class="list-group-item"><%= chartDocument.name %>
+							<button type="button" class="btn btn-info btn-xs chart" name="<%= chartDocument.name %>">Graph</button>
+							<a type="button" class="btn btn-danger btn-xs" name="<%= chartDocument.name %>" href="/remove/<%= chartDocument._id %>">Delete</a>
+						 </li>
 					<% }); %>
-					</div>					
+					</ul>				
 				</div>
 			</div>
 			<div class="col-md-10">
-				<div id="container" style="height: 1000px; margin: 0 auto"></div>
+				<div id="container" style="width: 5000px; height: 1000px; margin: 0 auto"></div>
 			</div>
 		</div>
 		<div class="row">

@@ -21,6 +21,37 @@ exports.index = function(req, res){
 	});
 };
 
+exports.remove = function(req, res){
+	console.log(req.params.id);
+	var id = req.params.id;
+	dataSet.findById(id, function (err, doc) {
+		//console.log(doc);
+		data.unArchive(doc.name, './tests/archives/', function(err, success) {
+			if (err) throw err;
+			
+			doc.remove(function(err, callback) {
+				dataSet.findById(doc._id, function (err, doc) {
+				    console.log(doc) // null
+					dataSet.find(function (err, docs) {
+						res.render('index', { 
+							Project: 'Accelerometer Data'
+							, files: fs.readdirSync('./tests')
+							, chartDocuments: docs
+						});	
+					});
+				});
+			});
+			
+		});
+	});
+	/*
+	res.render('index', {
+		Project: 'Accelerometer Data'
+		, files: fs.readdirSync('./tests')
+		, title: 'remove'
+		, chartDocuments: [1,2,3]	// Temp
+	});*/
+};
 
 exports.list = function(req, res) {
 	res.render('list', {
