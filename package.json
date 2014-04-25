@@ -18,5 +18,8 @@
 	, "mongoose": "*"
 	, "mv": "*"
 	, "async": "*"
+  , "node-gyp": "*"
+  , "serialport": "*"
+  , "moment": "*"
   }
 }

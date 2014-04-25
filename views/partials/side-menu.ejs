@@ -1,0 +1,33 @@
+<div class="row">
+	<h4>Files to convert</h4>
+	<ul class="list-group">
+	<% files.forEach( function( file ){ %>
+		<li class="list-group-item"><%= file %> 
+		<button type="button" class="btn btn-primary btn-xs convert" name="<%= file %>">Convert</button>
+		</li>
+	<% }); %>
+	</ul>
+</div>
+
+<div class="row">
+	<h4>Available Data</h4>
+	<ul class="list-group">
+	<% chartDocuments.forEach( function( chartDocument ){ %>
+		 <li class="list-group-item"><%= chartDocument.name %>
+			<button type="button" class="btn btn-info btn-xs chart" name="<%= chartDocument.name %>">Graph</button>
+			<a type="button" class="btn btn-danger btn-xs" name="<%= chartDocument.name %>" href="/remove/<%= chartDocument._id %>">Delete</a>
+		 </li>
+	<% }); %>
+	</ul>				
+</div>
+
+<div class="row">
+	<h4>Tweak Data</h4>
+	<div class="btn-toolbar" role="toolbar">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default x">Hide - X</button>
+			<button type="button" class="btn btn-default y">Hide - Y</button>					
+			<button type="button" class="btn btn-default z">Hide - Z</button>					
+		</div>
+	</div>
+</div>

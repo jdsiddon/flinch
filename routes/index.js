@@ -21,6 +21,17 @@ exports.index = function(req, res){
 	});
 };
 
+exports.files = function (req, res) {
+    //compute data here
+	dataSet.find(function (err, docs) {
+		res.render('partials/side-menu', { 
+			files: fs.readdirSync('./tests')
+			, chartDocuments: docs
+		});	
+	});
+};
+
+/* Remove data from DB */
 exports.remove = function(req, res){
 	console.log(req.params.id);
 	var id = req.params.id;
@@ -60,6 +71,7 @@ exports.list = function(req, res) {
 	});		
 };
 
+/* Convert text file to mongo document, move file to archives folder after complete */
 exports.convert = function(req, res) {
 	var file = req.params['file'];
 	console.log(file);

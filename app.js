@@ -6,6 +6,7 @@ var
 	, path = require('path')
 	, engine = require('ejs-locals')
 	, mongoose = require('mongoose')
+	, data = require('./lib/data')
 ;
 
 var connStr = 'mongodb://localhost/shooting-data';
@@ -42,7 +43,14 @@ app.get('/convert/:file', routes.convert);
 app.get('/chart/:chartData', routes.chart);
 app.get('/remove/:id', routes.remove);
 
+app.get('/files', routes.files);
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
-});
 
+	data.log(function(err, success) {
+		console.log(success);
+	});
+
+});
