@@ -7,7 +7,20 @@ var
 	, engine = require('ejs-locals')
 	, mongoose = require('mongoose')
 	, data = require('./lib/data')
+	, serialport = require('serialport')
+	, SerialPort = serialport.SerialPort
 ;
+
+// create new sp object, instance of SerialPort.
+// /dev/cu.usbmodem411
+// /dev/tty.usbserial-A603HVO0
+var sp = new SerialPort("/dev/cu.usbmodem31691", {	// MUST CHANGE BASED ON SERIAL PORT!!!
+	baudrate: 9600,
+	parser: serialport.parsers.readline("\n")			// parse on newline
+}, false);
+
+
+
 
 var connStr = 'mongodb://localhost/shooting-data';
 
@@ -49,8 +62,22 @@ app.get('/files', routes.files);
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 
-	data.log(function(err, success) {
-		console.log(success);
+	sp.open(function() {
+		console.log("open");
+		sp.on('data', function (allData) {
+			console.log(allData);
+			/*sp.flush(function (error) {
+				console.log(allData);
+			});*/
+
+
+
+				var total = [];
+
+			 /* data.log(total, allData, function(err, success) {
+					console.log(success);
+				});*/
+		});
 	});
 
 });
