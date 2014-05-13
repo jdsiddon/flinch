@@ -15,7 +15,7 @@ var
 // /dev/cu.usbmodem411
 // /dev/tty.usbserial-A603HVO0
 var sp = new SerialPort("/dev/cu.usbmodem31691", {	// MUST CHANGE BASED ON SERIAL PORT!!!
-	baudrate: 9600,
+	baudrate: 115200,
 	parser: serialport.parsers.readline("\n")			// parse on newline
 }, false);
 
@@ -65,18 +65,20 @@ http.createServer(app).listen(app.get('port'), function(){
 	sp.open(function() {
 		console.log("open");
 		sp.on('data', function (allData) {
-			console.log(allData);
-			/*sp.flush(function (error) {
-				console.log(allData);
-			});*/
+			console.log('data');
 
+			data.parse(allData, function(dataArray) {
+				console.log(dataArray);
+				data.log(dataArray, function(err, fileNameLoc) {
+					if (err) throw(err);
 
+					data.convert(fileNameLoc, function(err, savedFile) {
+						console.log(savedFile);
+					});
 
-				var total = [];
+				});
+			});
 
-			 /* data.log(total, allData, function(err, success) {
-					console.log(success);
-				});*/
 		});
 	});
 
