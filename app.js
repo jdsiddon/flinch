@@ -60,7 +60,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/list', routes.list);
-app.get('/convert/:file', routes.convert);
+app.get('/convert/:file', routes.convert);			// This route is now automatic.
 app.get('/chart/:chartData', routes.chart);
 app.get('/remove/:id', routes.remove);
 
@@ -83,7 +83,6 @@ http.createServer(app).listen(app.get('port'), function(){
 					data.log(dataString, function(err, fileNameLoc) {
 						if (err) throw (err);
 
-						console.log('filename being passed - ' + fileNameLoc);
 						data.convert(fileNameLoc, function(err, savedFile) {
 							if (err) throw (err);
 							console.log(savedFile);
