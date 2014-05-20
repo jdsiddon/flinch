@@ -76,21 +76,18 @@ http.createServer(app).listen(app.get('port'), function(){
 
 		// On data event
 		sp.on('data', function (allData) {
-			/*if(allData == 1 && readyCounter != 1) {
-				readyCounter = 1;
-				console.log("Ready!");
-			} else if(readyCounter == 1) {
-			*/
 				/* Take raw data from sensor and split data points on "/" and turn it into an
 				array of data.*/
-				data.parse(allData, function(dataArray) {
-					//console.log("dataArray " + dataArray);
-					data.log(dataArray, function(err, fileNameLoc) {
-						if (err) throw(err);
+				data.parse(allData, function(dataString) {
 
+					data.log(dataString, function(err, fileNameLoc) {
+						if (err) throw (err);
+
+						console.log('filename being passed - ' + fileNameLoc);
 						data.convert(fileNameLoc, function(err, savedFile) {
+							if (err) throw (err);
 							console.log(savedFile);
-			//			readyCounter = 0;
+
 						});
 
 					});
