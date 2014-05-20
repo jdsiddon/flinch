@@ -1,7 +1,8 @@
 
 	$(document).ready(function() {
-			
+
 		$('.chart').click(function(){
+			console.log(this.name);
 
 			$.get('/chart/' + this.name, function(pkg) {
 
