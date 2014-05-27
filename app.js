@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 var
 	express = require('express')
 	, app = express()
@@ -17,6 +9,8 @@ var
 	, data = require('./lib/data')
 	, serialport = require('serialport')
 	, SerialPort = serialport.SerialPort
+	, prompt = require('prompt')
+	, prompts = require('./lib/prompts')
 ;
 
 // create new sp object, instance of SerialPort.
@@ -32,10 +26,7 @@ var sp = new SerialPort("/dev/cu.usbmodem31691", {	// MUST CHANGE BASED ON SERIA
 
 var connStr = 'mongodb://localhost/shooting-data';
 
-mongoose.connect(connStr, function(err) {
-	if (err) throw err;
-	console.log('Successfully connected to MongoDB');
-});
+
 
 app.engine('ejs', engine);
 
@@ -70,30 +61,41 @@ app.get('/files', routes.files);
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 
-	sp.open(function() {
-		console.log("Serial Port Open");
-		var readyCounter = 0;
+	mongoose.connect(connStr, function(err) {
+		if (err) throw err;
+		console.log('Successfully connected to MongoDB');
 
-		// On data event
-		sp.on('data', function (allData) {
-				/* Take raw data from sensor and split data points on "/" and turn it into an
-				array of data.*/
-				data.parse(allData, function(dataString) {
 
-					data.log(dataString, function(err, fileNameLoc) {
-						if (err) throw (err);
+		sp.open(function() {
 
-						data.convert(fileNameLoc, function(err, savedFile) {
+			console.log("Serial Port Open");
+			prompt.start();
+
+			prompts.getPlace(function (err, result) {
+				console.log(result);
+
+
+				var readyCounter = 0;
+
+				// On data event
+				sp.on('data', function (allData) {
+						/* Take raw data from sensor and split data points on "/" and turn it into an
+						array of data.*/
+					data.parse(allData, function(dataString) {
+						data.log(dataString, function(err, fileNameLoc) {
 							if (err) throw (err);
-							console.log(savedFile);
-
+							data.convert(fileNameLoc, function(err, savedFile) {
+								if (err) throw (err);
+								console.log(savedFile);
+							});
 						});
-
 					});
 				});
-	//	}
+
+			});
 
 		});
+
 	});
 
 });

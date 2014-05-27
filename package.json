@@ -21,5 +21,6 @@
   , "node-gyp": "*"
   , "serialport": "*"
   , "moment": "*"
+  , "prompt" : "*"
   }
 }
