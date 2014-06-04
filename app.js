@@ -69,11 +69,11 @@ http.createServer(app).listen(app.get('port'), function(){
 		sp.open(function() {
 
 			console.log("Serial Port Open");
-			prompt.start();
+		/*	prompt.start();
 
 			prompts.getPlace(function (err, result) {
 				console.log(result);
-
+*/
 
 				var readyCounter = 0;
 
@@ -92,7 +92,7 @@ http.createServer(app).listen(app.get('port'), function(){
 					});
 				});
 
-			});
+		//	});
 
 		});
 
