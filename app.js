@@ -16,7 +16,7 @@ var
 // create new sp object, instance of SerialPort.
 // /dev/cu.usbmodem411
 // /dev/tty.usbserial-A603HVO0
-var sp = new SerialPort("/dev/cu.usbmodem31691", {	// MUST CHANGE BASED ON SERIAL PORT!!!
+var sp = new SerialPort("/dev/tty.usbmodem40541", {	// MUST CHANGE BASED ON SERIAL PORT!!!
 	baudrate: 115200,
 	parser: serialport.parsers.readline("\n")			// parse on newline
 }, false);
@@ -69,11 +69,6 @@ http.createServer(app).listen(app.get('port'), function(){
 		sp.open(function() {
 
 			console.log("Serial Port Open");
-		/*	prompt.start();
-
-			prompts.getPlace(function (err, result) {
-				console.log(result);
-*/
 
 				var readyCounter = 0;
 
