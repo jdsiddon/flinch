@@ -26,9 +26,10 @@ Need to transfer over javascript app is referencing remotely to a local repo so 
   Display this data on the nav menu on the right with an icon 'r' for rest and 'h' for hand or something similar.
 
 6-2-14
-- Change model to use usb breakout instead of mini usb
-- Change model to fit new accelerometer
-- Change model to fit single 3mm led
-- Change model to fit a single dip switch
-- Add Arduino logic to show one 3mm led illuminated when ready for data, i.e., when the delay loop is done.
-- Add Arduino logic to change data head based on dip switch setting, one for 'hand' other for 'mount'.
+Change model to use usb breakout instead of mini usb
+Change model to fit new accelerometer
+Change model to fit single 3mm led
+Change model to fit a single dip switch
+Add Arduino logic to show one 3mm led illuminated when ready for data, i.e., when the delay loop is done.
+Add Arduino logic to change data head based on dip switch setting, one for 'hand' other for 'mount'.
+Add Arduino logic to make time relative to the data its spitting out, not to the time since the Arduino has been on.
