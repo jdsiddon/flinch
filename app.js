@@ -9,8 +9,8 @@ var
 	, data = require('./lib/data')
 	, serialport = require('serialport')
 	, SerialPort = serialport.SerialPort
-	, prompt = require('prompt')
-	, prompts = require('./lib/prompts')
+//	, prompt = require('prompt')
+//	, prompts = require('./lib/prompts')
 ;
 
 // create new sp object, instance of SerialPort.
