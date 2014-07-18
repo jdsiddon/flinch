@@ -18,12 +18,7 @@ is actually just a normal milli() field from Arduino. Should populate this field
 side. So to sum it up make the date of the database entry be date.now() or something similar.
 
 3-26-14
-- Event emitter in sensor-events.js for .open() isn't working correctly. Should emit an event each time data comes
-  across arduino.
 Need to transfer over javascript app is referencing remotely to a local repo so I can view data in field.
-- Add events for data coming in, ready to fire, testing, etc.
-- Add command line entry for hand or rest shooting, and shooter name. Take this data and save it to the Mongo document.
-  Display this data on the nav menu on the right with an icon 'r' for rest and 'h' for hand or something similar.
 
 6-2-14
 Change model to use usb breakout instead of mini usb
