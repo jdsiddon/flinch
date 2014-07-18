@@ -9,24 +9,17 @@ var
 	, data = require('./lib/data')
 	, serialport = require('serialport')
 	, SerialPort = serialport.SerialPort
-//	, prompt = require('prompt')
-//	, prompts = require('./lib/prompts')
 ;
 
-// create new sp object, instance of SerialPort.
-// /dev/cu.usbmodem411
-// /dev/tty.usbserial-A603HVO0
+/* Create new 'sp' object which is an instance of SerialPort. Must change "/dev/tty"
+	 to be available serial object. */
 var sp = new SerialPort("/dev/tty.usbmodem40541", {	// MUST CHANGE BASED ON SERIAL PORT!!!
 	baudrate: 115200,
-	parser: serialport.parsers.readline("\n")			// parse on newline
+	parser: serialport.parsers.readline("\n")			// Parse data on newline
 }, false);
 
-
-
-
+// Open connection to local MongoDB
 var connStr = 'mongodb://localhost/shooting-data';
-
-
 
 app.engine('ejs', engine);
 
