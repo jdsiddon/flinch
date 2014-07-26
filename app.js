@@ -7,16 +7,12 @@ var
 	, engine = require('ejs-locals')
 	, mongoose = require('mongoose')
 	, data = require('./lib/data')
+	, startSerialConn = require('./lib/serial')
 	, serialport = require('serialport')
 	, SerialPort = serialport.SerialPort
 ;
 
-/* Create new 'sp' object which is an instance of SerialPort. Must change "/dev/tty"
-	 to be available serial object. */
-var sp = new SerialPort("/dev/tty.usbmodem40541", {	// MUST CHANGE BASED ON SERIAL PORT!!!
-	baudrate: 115200,
-	parser: serialport.parsers.readline("\n")			// Parse data on newline
-}, false);
+
 
 // Open connection to local MongoDB
 var connStr = 'mongodb://localhost/shooting-data';
@@ -47,7 +43,6 @@ app.get('/list', routes.list);
 app.get('/convert/:file', routes.convert);			// This route is now automatic.
 app.get('/chart/:chartData', routes.chart);
 app.get('/remove/:id', routes.remove);
-
 app.get('/files', routes.files);
 
 
@@ -58,32 +53,36 @@ http.createServer(app).listen(app.get('port'), function(){
 		if (err) throw err;
 		console.log('Successfully connected to MongoDB');
 
+		serialport.list(function (err, ports) {
+  		ports.forEach(function(port) {
+				if (port.manufacturer == 'Teensyduino') {
+					console.log('Teensy plugged in on ' + port.comName + ', connecting now...');
+					startSerialConn(port.comName);
+				}
+			});
+			/*
+			ports.forEach(function(port) {
+    		console.log('name: ' + port.comName);
+  		});
 
-		sp.open(function() {
+			process.stdin.on('data', function(input) {
+				console.log(input);
 
-			console.log("Serial Port Open");
+				ports.forEach(function(port) {
+					console.log(port);
+					process.stdout.write(typeof input);
+					process.stdout.write(typeof port);
+					if (port == input.toString()) {
+						console.log('You selected: ' + input.toString());
 
-				var readyCounter = 0;
+						startSerialConn(port);
 
-				// On data event
-				sp.on('data', function (allData) {
-						/* Take raw data from sensor and split data points on "/" and turn it into an
-						array of data.*/
-					data.parse(allData, function(dataString) {
-						data.log(dataString, function(err, fileNameLoc) {
-							if (err) throw (err);
-							data.convert(fileNameLoc, function(err, savedFile) {
-								if (err) throw (err);
-								console.log(savedFile);
-							});
-						});
-					});
+					} else {
+						console.log('Please select valid serial port');
+					}
 				});
-
-		//	});
-
+			});*/
 		});
-
 	});
 
 });
