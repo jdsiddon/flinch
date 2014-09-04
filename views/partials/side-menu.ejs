@@ -4,6 +4,7 @@
 	<% chartDocuments.forEach( function( chartDocument ){ %>
 		 <li class="list-group-item"><%= chartDocument.name %>
 			<button type="button" class="btn btn-info btn-xs chart" name="<%= chartDocument.name %>">Graph</button>
+			<button type="button" class="btn btn-primary btn-xs render" name="<%= chartDocument.name %>">Render</button>
 			<a type="button" class="btn btn-danger btn-xs" name="<%= chartDocument.name %>" href="/remove/<%= chartDocument._id %>">Delete</a>
 		 </li>
 	<% }); %>

@@ -13,21 +13,21 @@ var
 /* Index Route */
 exports.index = function(req, res){
 	dataSet.find(function (err, docs) {
-		res.render('index', { 
+		res.render('index', {
 			Project: 'Accelerometer Data'
 			, files: fs.readdirSync('./tests')
 			, chartDocuments: docs
-		});	
+		});
 	});
 };
 
 exports.files = function (req, res) {
     //compute data here
 	dataSet.find(function (err, docs) {
-		res.render('partials/side-menu', { 
+		res.render('partials/side-menu', {
 			files: fs.readdirSync('./tests')
 			, chartDocuments: docs
-		});	
+		});
 	});
 };
 
@@ -39,20 +39,20 @@ exports.remove = function(req, res){
 		//console.log(doc);
 		data.unArchive(doc.name, './tests/archives/', function(err, success) {
 			if (err) throw err;
-			
+
 			doc.remove(function(err, callback) {
 				dataSet.findById(doc._id, function (err, doc) {
 				    console.log(doc) // null
 					dataSet.find(function (err, docs) {
-						res.render('index', { 
+						res.render('index', {
 							Project: 'Accelerometer Data'
 							, files: fs.readdirSync('./tests')
 							, chartDocuments: docs
-						});	
+						});
 					});
 				});
 			});
-			
+
 		});
 	});
 	/*
@@ -68,7 +68,7 @@ exports.list = function(req, res) {
 	res.render('list', {
 		title: 'list',
 		files: files
-	});		
+	});
 };
 
 /* Convert text file to mongo document, move file to archives folder after complete */
@@ -89,7 +89,7 @@ exports.convert = function(req, res) {
 				//	console.log(stuff);
 					res.send(success);
 				}
-			});		
+			});
 		}
 	});
 };
@@ -98,17 +98,17 @@ exports.chart = function(req, res) {
 	console.log(req.params.chartData);
 	dataSet.findOne({ name: req.params.chartData }, function(err, data) {
 		if (err) console.log(err);
-		
+
 		var head = [data.date, data.g, data.frequency];					// Information about the data date, g force setting, and frequency
 		var x = [];
 		var y = [];
 		var z = [];
-		
+
 		standard.asyncLoop(data.reading.length, function(loop) {
 			var formatData = function(cb) {								// Function to peel apart single data points from the "Reading" doc
 				var line = data.reading[loop.iteration()];				// Single object with "time, x, y, z" properties
 				if (line.time != null) {								// Make sure data point is valid
-					var tempT = line.time;									 
+					var tempT = line.time;
 					var tempX = line.x;
 					var tempY = line.y;
 					var tempZ = line.z;
@@ -116,24 +116,35 @@ exports.chart = function(req, res) {
 					x.push([tempT, tempX]);									// Push temp variables to individual arrays to fit within
 					y.push([tempT, tempY]);									// highstock.js's API.
 					z.push([tempT, tempZ]);
-				}	
+				}
 				cb();
-				
+
 			};
 			formatData(function() {
-				loop.next();											
+				loop.next();
 			});
 		}, function() {													// Executes after each data.reading subdocument has been looped through
 
-			var pkg = {													// Package each individual array into object to send back to client 
+			var pkg = {													// Package each individual array into object to send back to client
 				head: head,												// for graphing.
 				x: x,
 				y: y,
 				z: z,
 			};
 			//console.log(pkg);											// Debugging
-			
+
 			res.send(pkg);												// Send the data
+		});
+	});
+};
+
+exports.render = function(req, res) {
+	dataSet.find(function (err, docs) {
+		res.render('render', {
+			Project: 'Accelerometer Data'
+			, title: '3D Test Render'
+			, files: fs.readdirSync('./tests')
+			, chartDocuments: docs
 		});
 	});
 };

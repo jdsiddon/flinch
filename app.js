@@ -44,6 +44,7 @@ app.get('/convert/:file', routes.convert);			// This route is now automatic.
 app.get('/chart/:chartData', routes.chart);
 app.get('/remove/:id', routes.remove);
 app.get('/files', routes.files);
+app.get('/render', routes.render);
 
 
 http.createServer(app).listen(app.get('port'), function(){
@@ -55,8 +56,14 @@ http.createServer(app).listen(app.get('port'), function(){
 
 		serialport.list(function (err, ports) {
   		ports.forEach(function(port) {
+				console.log(port);
 				if (port.manufacturer == 'Teensyduino') {
 					console.log('Teensy plugged in on ' + port.comName + ', connecting now...');
+					startSerialConn(port.comName);
+				}
+				if (port.comName == '/dev/cu.PL2303-00002014') {
+					console.log('Flinch plugged in on ' + port.comName + ', you are are ttyl converter!');
+					console.log('Connecting now...');
 					startSerialConn(port.comName);
 				}
 			});

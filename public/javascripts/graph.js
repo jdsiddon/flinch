@@ -1,5 +1,11 @@
 
 	$(document).ready(function() {
+		$('.render').click(function(){
+			console.log(this.name);
+			var a = 340;
+			return a;
+		});
+
 
 		$('.chart').click(function(){
 			console.log(this.name);

@@ -21,10 +21,13 @@ side. So to sum it up make the date of the database entry be date.now() or somet
 Need to transfer over javascript app is referencing remotely to a local repo so I can view data in field.
 
 6-2-14
-Change model to use usb breakout instead of mini usb
-Change model to fit new accelerometer
-Change model to fit single 3mm led
-Change model to fit a single dip switch
-Add Arduino logic to show one 3mm led illuminated when ready for data, i.e., when the delay loop is done.
-Add Arduino logic to change data head based on dip switch setting, one for 'hand' other for 'mount'.
-Add Arduino logic to make time relative to the data its spitting out, not to the time since the Arduino has been on.
+X - Change model to use usb breakout instead of mini usb
+X - Change model to fit new accelerometer
+X - Change model to fit single 3mm led
+X - Change model to fit a single dip switch
+X - Add Arduino logic to show one 3mm led illuminated when ready for data, i.e., when the delay loop is done.
+X - Add Arduino logic to change data head based on dip switch setting, one for 'hand' other for 'mount'.
+X - Add Arduino logic to make time relative to the data its spitting out, not to the time since the Arduino has been on.
+
+9-1-14
+http://adlervermillion.com/how-to-read-a-patent/

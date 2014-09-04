@@ -7,15 +7,17 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 		<script type="text/javascript" src="javascripts/graph.js"></script>
-		
+		<script type="text/javascript" src="javascripts/processing.js"></script>
+
+
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-		
+
 		<meta name="author" content="justin siddon">
 		<!-- Date: 2014-03-06 -->
-		
+
 	</head>
 
-	<body>		
+	<body>
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -32,7 +34,7 @@
 	            		<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">To Convert<b class="caret"></b></a>
 						    	<ul class="dropdown-menu">
-									<% files.forEach( function( file ){ %>		
+									<% files.forEach( function( file ){ %>
 										<li class="" name="<%= file %>"><a href="/convert/<%= file %>"><%= file %></a></li>
 									<% }); %>
 						        </ul>
@@ -40,7 +42,7 @@
 	            		<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Data to Chart<b class="caret"></b></a>
 						    	<ul class="dropdown-menu">
-									<% chartDocuments.forEach( function( chartDocument ){ %>		
+									<% chartDocuments.forEach( function( chartDocument ){ %>
 										<li class="" name="<%= chartDocument.name %>"><a href="/chart/<%= chartDocument.name %>"><%= chartDocument.name %></a></li>
 									<% }); %>
 						        </ul>
@@ -54,9 +56,9 @@
 	<footer>
 		<%-blocks.footer%>
 	</footer>
-	
+
     <script src="/bootstrap/js/bootstrap.js"></script>
 	<script src="/bootstrap/js/offcanvas.js"></script>
-	
+
 	</body>
 </html>

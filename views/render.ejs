@@ -1,0 +1,23 @@
+<% layout('layout') -%>
+  <div class="container">
+      <div class="row">
+        <div id="sideMenu" class="col-md-2">
+        <%- include /partials/side-menu.ejs %>
+      </div>
+      <div class="col-md-10">
+        <canvas data-processing-sources="processing/render.pde" style="width: 1000px; height: 1000px; margin: 0 auto">
+        </canvas>
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" onclick="drawSomeText('processing/render')">click</button>
+
+    </div>
+  </div>
+<script>
+  function drawSomeText() {
+    var pjs = Processing.getInstanceById('processing/render');
+    var num = 340;
+    pjs.draw(num);
+  }
+</script>
