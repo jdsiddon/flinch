@@ -31,3 +31,5 @@ X - Add Arduino logic to make time relative to the data its spitting out, not to
 
 9-1-14
 http://adlervermillion.com/how-to-read-a-patent/
+http://physics.rutgers.edu/~aatish/teach/srr/workshop3.pdf
+Get processing code to loop through the test array.
