@@ -8,16 +8,16 @@
     </div>
     <div class="col-md-10">
       <button type="button" onclick="redraw()">redraw</button>
-      <canvas id="working_tilt_V3" data-processing-sources="processing/working_tilt_V3/working_tilt_V3.pde" style="width: 1000px; height: 1000px; margin: 0 auto">
+      <canvas id="working_tilt_V4" data-processing-sources="processing/working_tilt_V4/working_tilt_V4.pde" style="width: 1000px; height: 1000px; margin: 0 auto">
       </canvas>
     </div>
   </div>
 
   <div class="row">
-    <button type="button" onclick="drawSomeText('working_tilt_V3')">click</button>
-    <button type="button" onclick="playMovie('working_tilt_V3')">movie</button>
+    <button type="button" onclick="drawSomeText('working_tilt_V4')">click</button>
+    <button type="button" onclick="playMovie('working_tilt_V4')">movie</button>
   </div>
-  
+
 </div>
 
 
@@ -29,6 +29,7 @@
     var num = 340;
     pjs.drawText('test');
   }
+
   function playMovie(id) {
   //  console.log("id: " + id);
     var pjs = Processing.getInstanceById(id);
@@ -36,8 +37,24 @@
   //  var num = 340;
     pjs.buildGun();
   }
+
   function redraw(id) {
-    var pjs = Processing.getInstanceById('working_tilt_V3');
-    pjs.clickMe();
+
+    var data = { 'points' : [ {'x': 10 , 'y': 10},
+               {'x': 190 , 'y': 10},
+               {'x': 190 , 'y': 190},
+               {'x': 10, 'y': 190} ] }
+
+    var pjs = Processing.getInstanceById('working_tilt_V4');
+
+    for(p=0, end=data.points.length; p<end; p++) {
+      var point = data.points[p];
+      pjs.draw();
+      //pjs.clickMe();
+      console.log('x: ' + point.x + ', y: ' + point.y);
+      //pjs.addPoint(point.x, point.y);
+    }
+
+
   }
 </script>
