@@ -30,6 +30,12 @@ X - Add Arduino logic to change data head based on dip switch setting, one for '
 X - Add Arduino logic to make time relative to the data its spitting out, not to the time since the Arduino has been on.
 
 9-1-14
-http://adlervermillion.com/how-to-read-a-patent/
-http://physics.rutgers.edu/~aatish/teach/srr/workshop3.pdf
-Get processing code to loop through the test array.
+X - http://adlervermillion.com/how-to-read-a-patent/
+X - http://physics.rutgers.edu/~aatish/teach/srr/workshop3.pdf
+X - Get processing code to loop through the test array.
+
+9-7-14
+Call processing from node app. Similar to a button on click load array data for that test and play video.
+
+10-5-14
+Got processing function to execute when I click 'redraw' button. Now need to send function text from html.

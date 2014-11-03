@@ -5,6 +5,7 @@
 		 <li class="list-group-item"><%= chartDocument.name %>
 			<button type="button" class="btn btn-info btn-xs chart" name="<%= chartDocument.name %>">Graph</button>
 			<button type="button" class="btn btn-primary btn-xs render" name="<%= chartDocument.name %>">Render</button>
+			<button type="button" onclick="drawSomeText('working_tilt_V3')">click</button>
 			<a type="button" class="btn btn-danger btn-xs" name="<%= chartDocument.name %>" href="/remove/<%= chartDocument._id %>">Delete</a>
 		 </li>
 	<% }); %>

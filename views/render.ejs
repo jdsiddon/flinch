@@ -5,19 +5,33 @@
         <%- include /partials/side-menu.ejs %>
       </div>
       <div class="col-md-10">
-        <canvas data-processing-sources="processing/render.pde" style="width: 1000px; height: 1000px; margin: 0 auto">
+        <button type="button" onclick="redraw()">redraw</button>
+        <canvas id="working_tilt_V3" data-processing-sources="processing/working_tilt_V3/working_tilt_V3.pde" style="width: 1000px; height: 1000px; margin: 0 auto">
         </canvas>
       </div>
     </div>
     <div class="row">
-      <button type="button" onclick="drawSomeText('processing/render')">click</button>
-
+      <button type="button" onclick="drawSomeText('working_tilt_V3')">click</button>
+      <button type="button" onclick="playMovie('working_tilt_V3')">movie</button>
     </div>
   </div>
-<script>
-  function drawSomeText() {
-    var pjs = Processing.getInstanceById('processing/render');
+<script type="text/javascript">
+  function drawSomeText(id) {
+    console.log("id: " + id);
+    var pjs = Processing.getInstanceById(id);
+    console.log("pjs: " + pjs);
     var num = 340;
-    pjs.draw(num);
+    pjs.drawText('test');
+  }
+  function playMovie(id) {
+  //  console.log("id: " + id);
+    var pjs = Processing.getInstanceById(id);
+  //  console.log("pjs: " + pjs);
+  //  var num = 340;
+    pjs.buildGun();
+  }
+  function redraw(id) {
+    var pjs = Processing.getInstanceById('working_tilt_V3');
+    pjs.clickMe();
   }
 </script>
