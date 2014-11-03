@@ -1,20 +1,26 @@
 <% layout('layout') -%>
-  <div class="container">
-      <div class="row">
-        <div id="sideMenu" class="col-md-2">
-        <%- include /partials/side-menu.ejs %>
-      </div>
-      <div class="col-md-10">
-        <button type="button" onclick="redraw()">redraw</button>
-        <canvas id="working_tilt_V3" data-processing-sources="processing/working_tilt_V3/working_tilt_V3.pde" style="width: 1000px; height: 1000px; margin: 0 auto">
-        </canvas>
-      </div>
+
+<div class="container">
+
+  <div class="row">
+    <div id="sideMenu" class="col-md-2">
+      <%- include /partials/side-menu.ejs %>
     </div>
-    <div class="row">
-      <button type="button" onclick="drawSomeText('working_tilt_V3')">click</button>
-      <button type="button" onclick="playMovie('working_tilt_V3')">movie</button>
+    <div class="col-md-10">
+      <button type="button" onclick="redraw()">redraw</button>
+      <canvas id="working_tilt_V3" data-processing-sources="processing/working_tilt_V3/working_tilt_V3.pde" style="width: 1000px; height: 1000px; margin: 0 auto">
+      </canvas>
     </div>
   </div>
+
+  <div class="row">
+    <button type="button" onclick="drawSomeText('working_tilt_V3')">click</button>
+    <button type="button" onclick="playMovie('working_tilt_V3')">movie</button>
+  </div>
+  
+</div>
+
+
 <script type="text/javascript">
   function drawSomeText(id) {
     console.log("id: " + id);

@@ -1,15 +1,14 @@
 <div class="row">
 	<h4>Available Data</h4>
-	<ul class="list-group">
 	<% chartDocuments.forEach( function( chartDocument ){ %>
-		 <li class="list-group-item"><%= chartDocument.name %>
+		<h6><%= chartDocument.name %></h6>
+		<div class="btn-group">
 			<button type="button" class="btn btn-info btn-xs chart" name="<%= chartDocument.name %>">Graph</button>
 			<button type="button" class="btn btn-primary btn-xs render" name="<%= chartDocument.name %>">Render</button>
-			<button type="button" onclick="drawSomeText('working_tilt_V3')">click</button>
-			<a type="button" class="btn btn-danger btn-xs" name="<%= chartDocument.name %>" href="/remove/<%= chartDocument._id %>">Delete</a>
-		 </li>
+			<a class="btn btn-danger btn-xs" role="button" name="<%= chartDocument.name %>" href="/remove/<%= chartDocument._id %>">Delete</a>
+			<button type="button" class="btn btn-danger btn-xs" onclick="drawSomeText('working_tilt_V3')">Click</button>
+		</div>
 	<% }); %>
-	</ul>
 </div>
 
 <div class="row">
