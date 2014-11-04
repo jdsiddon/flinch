@@ -94,6 +94,16 @@ exports.convert = function(req, res) {
 	});
 };
 
+exports.renderVideo = function(req, res) {
+	console.log(req.params.data);
+	dataSet.findOne({ name: req.params.data }, function(err, data) {
+		if (!err) {
+			console.log(data);
+			res.send(data.reading);
+		}
+	});
+};
+
 exports.chart = function(req, res) {
 	console.log(req.params.chartData);
 	dataSet.findOne({ name: req.params.chartData }, function(err, data) {

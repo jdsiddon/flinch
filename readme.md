@@ -39,3 +39,6 @@ Call processing from node app. Similar to a button on click load array data for 
 
 10-5-14
 Got processing function to execute when I click 'redraw' button. Now need to send function text from html.
+
+11-2-14
+Notes: Got processing code executing and stopping correctly. Code stops with noLoop after running through entire array. 'Test' button on render page quickly flashes a 'test' message. This is to test executing code during processing. Next step is to send data from front end to Processing code.

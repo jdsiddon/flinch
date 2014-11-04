@@ -32,26 +32,30 @@
     pjs.drawText();
   }
 
-  function redraw(id) {
+  function redraw(data) {
     var pjs = Processing.getInstanceById('working_tilt_V4');
-
+    /*
     var data = { 'points' : [ {'x': 10 , 'y': 10},
                {'x': 190 , 'y': 10},
                {'x': 190 , 'y': 190},
                {'x': 10, 'y': 190} ] }
-
+    */
     //var pjs = Processing.getInstanceById('working_tilt_V4');
+    console.log(data.length);
+    //console.log(data.reading);
+    /*for(var i = 0; i > data.length; i++) {
+      var point = data[i];
+      console.log(point);
+      //var testData = 1.09;
+      //pjs.newFunc(testData);
 
-    for(p=0, end=data.points.length; p<end; p++) {
-      var point = data.points[p];
-      var testData = 1.09;
-      pjs.newFunc(testData);
-      //pjs.clickMe();
 
-      console.log('x: ' + point.x + ', y: ' + point.y);
-      //pjs.addPoint(point.x, point.y);
-    }
+      //console.log('x: ' + point.x + ', y: ' + point.y);
+
+    }*/
 
 
   }
 </script>
+
+<script src="/javascripts/render.js" />

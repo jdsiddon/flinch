@@ -43,6 +43,7 @@ app.get('/list', routes.list);
 app.get('/convert/:file', routes.convert);			// This route is now automatic.
 app.get('/chart/:chartData', routes.chart);
 app.get('/remove/:id', routes.remove);
+app.get('/render/:data', routes.renderVideo);
 app.get('/files', routes.files);
 app.get('/render', routes.render);
 
